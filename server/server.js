@@ -1,8 +1,11 @@
 const express = require('express');
+const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 
+dotenv.config();
+
 //Instantiate my DB
-mongoose.connect('mongodb://127.0.0.1:27017/Marketplace', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const app = express();
 const PORT = process.env.PORT || 4000;

@@ -3,8 +3,15 @@ const Product = require('../models/product');
 //GET /api/product
 exports.getAllProducts = async (req, res) => {
     try {
-        const products = await Product.find();
-        res.json(products);
+        if(req.query.name != null){
+            const query = req.query.name;
+            const products = await Product.find({ name: { $regex: query, $options: 'i'}});
+            res.json(products);
+        }
+        else{
+            const products = await Product.find();
+            res.json(products);
+        }
     } catch(error){
         res.status(500).json({message: error.message})
     }
@@ -58,15 +65,15 @@ exports.updateProduct = async (req, res) => {
             product.description = req.body.description;
         }
 
-        if(req.price != null){
+        if(req.body.price != null){
             product.price = req.body.price;
         }
 
-        if(req.quantity != null){
+        if(req.body.quantity != null){
             product.quantity = req.body.quantity;
         }
 
-        if(req.category != null){
+        if(req.body.category != null){
             product.category = req.body.category;
         }
 
@@ -80,7 +87,7 @@ exports.updateProduct = async (req, res) => {
 //DELETE /api/product/delete
 exports.deleteProduct = async(req, res) => {
     try{
-        const product = await Project.findById(req.params.id);
+        const product = await Product.findById(req.params.id);
 
         if(product === null){
             return res.status(404).json({message: 'Product not found'});
@@ -95,7 +102,7 @@ exports.deleteProduct = async(req, res) => {
 
 exports.deleteAllProducts = async(req, res) => {
     try{
-        const product = await Project.find();
+        const product = await Product.find();
 
         if(product === null){
             return res.status(404).json({message: 'Product not found'});
@@ -108,11 +115,3 @@ exports.deleteAllProducts = async(req, res) => {
     }
 }
 
-exports.getAllKWProducts = async(req, res) => {
-    try{
-        const products = await Project.find({ name: /kw/i});
-        res.json(products);
-    } catch(error){
-        res.status(500).json({message: error.message});
-    }
-}

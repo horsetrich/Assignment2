@@ -22,7 +22,5 @@ router.delete('/:id', productController.deleteProduct);
 //DELETE ALL
 router.delete('/', productController.deleteAllProducts);
 
-//GET really specific one
-router.get('/:kw', productController.getAllKWProducts);
 
 module.exports = router;
