@@ -3,7 +3,7 @@ const router = express.Router();
 const productController = require('../controllers/product');
 
 // Define the CRUD API routes
-
+//Matthew Kool 301184313 COMP229
 //GET
 router.get('/', productController.getAllProducts);
 

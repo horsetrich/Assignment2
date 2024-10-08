@@ -1,6 +1,6 @@
 const Product = require('../models/product');
-
-//GET /api/product
+//Matthew Kool 301184313 COMP229
+//GET /api/product and can filter, at least by kw
 exports.getAllProducts = async (req, res) => {
     try {
         if(req.query.name != null){
@@ -84,7 +84,7 @@ exports.updateProduct = async (req, res) => {
     }
 }
 
-//DELETE /api/product/delete
+//DELETE /api/product/id
 exports.deleteProduct = async(req, res) => {
     try{
         const product = await Product.findById(req.params.id);
@@ -100,6 +100,7 @@ exports.deleteProduct = async(req, res) => {
     }
 }
 
+//DELETE /api/products
 exports.deleteAllProducts = async(req, res) => {
     try{
         const product = await Product.find();
